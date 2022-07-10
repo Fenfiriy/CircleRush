@@ -145,12 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DeathSquare.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="PlayerCircles.h" />
-    <ClInclude Include="SquareList.h" />
-    <ClInclude Include="Squares.h" />
-    <ClInclude Include="SquareSpawner.h" />
+    <ClInclude Include="PointSquare.h" />
+    <ClInclude Include="Square.h" />
+    <ClInclude Include="SquareManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />

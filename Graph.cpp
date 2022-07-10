@@ -4,10 +4,6 @@
 #include <memory.h>
 #include <algorithm>
 #include <cmath>
-#include <numbers>
-
-
-gPoint screenCenter = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 
 //check if (x, y) is on screen
 bool onScreen(double x, double y)
@@ -237,19 +233,6 @@ void fillCircle(gPoint& cen, double rad, uint32_t color)
 	}
 }
 
-//draw player circles
-void drawPlayer(double centDist, double rad, double angle, uint32_t color)
-{
-	double radAngle = angle * std::numbers::pi / 180;
-	double x1 = screenCenter.x + centDist * cos(radAngle),
-		x2 = screenCenter.x - centDist * cos(radAngle),
-		y1 = screenCenter.y + centDist * sin(radAngle),
-		y2 = screenCenter.y - centDist * sin(radAngle);
-
-	fillCircle(x1, y1, rad, color);
-	fillCircle(x2, y2, rad, color);
-}
-
 uint32_t reverseColor(uint32_t color)
 {
 	int r = (color / 65536) % 256,
@@ -258,4 +241,132 @@ uint32_t reverseColor(uint32_t color)
 
 	uint32_t newColor = (255 - r) * 65536 + (255 - g) * 256 + (255 - b);
 	return newColor;
+}
+
+bool numbers[10][7][5] = {
+	//zero
+	{
+		{0, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{0, 1, 1, 1, 0}
+	},
+	//one
+	{
+		{0, 0, 1, 0, 0},
+		{1, 1, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{1, 1, 1, 1, 1}
+	},
+	//two
+	{
+		{0, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{0, 0, 0, 1, 0},
+		{0, 0, 1, 0, 0},
+		{0, 1, 0, 0, 0},
+		{1, 0, 0, 0, 0},
+		{1, 1, 1, 1, 1}
+	},
+	//tree
+	{
+		{0, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{0, 0, 0, 0, 1},
+		{0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{0, 1, 1, 1, 0}
+	},
+	//four
+	{
+		{1, 0, 0, 0, 0},
+		{1, 0, 0, 0, 0},
+		{1, 0, 0, 0, 0},
+		{1, 0, 1, 0, 0},
+		{1, 1, 1, 1, 1},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	//five
+	{
+		{1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0},
+		{1, 0, 0, 0, 0},
+		{1, 1, 1, 1, 0},
+		{0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 0}
+	},
+	//six
+	{
+		{0, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0},
+		{1, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{0, 1, 1, 1, 0}
+	},
+	//seven
+	{
+		{1, 1, 1, 1, 1},
+		{0, 0, 0, 0, 1},
+		{0, 0, 0, 1, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	//eight
+	{
+		{0, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{0, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{0, 1, 1, 1, 0}
+	},
+	//nine
+	{
+		{0, 1, 1, 1, 0},
+		{1, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{0, 1, 1, 1, 1},
+		{0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 1},
+		{0, 1, 1, 1, 0}
+	}
+};
+
+int size = 5;
+
+void DrawNumber(int x, int y, int num, uint32_t color)
+{
+	for (int nx = x + 5 * size / 2; nx > x - 5 * size / 2; nx--)
+		for (int ny = y + 7 * size / 2; ny > y - 7 * size / 2; ny--)
+		{
+			int i = (2 * size + nx - x) / size, j = (3 * size + ny - y) / size;
+			if (numbers[num][j][i])
+				drawPix(nx, ny, color);
+		}
+}
+
+void DrawScore(int score, uint32_t color)
+{
+	int num = score;
+	int chCount = (int)log10(score);
+
+	for (int i = 0; i <= chCount; i++)
+	{
+		DrawNumber(SCREEN_WIDTH / 2 + 6 * size * (chCount / 2 - i), SCREEN_HEIGHT / 2, num % 10, color);
+		num /= 10;
+	}
 }

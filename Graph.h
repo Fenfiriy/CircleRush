@@ -2,6 +2,8 @@
 
 #include "Engine.h"
 
+#include <numbers>
+
 #define GREEN 65280
 #define BLUE 255
 #define RED 16711680
@@ -10,6 +12,8 @@
 
 
 struct gPoint { double x, y; };
+
+const gPoint screenCenter = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 
 //check if (x, y) is on screen
 bool onScreen(double x, double y);
@@ -75,7 +79,8 @@ void fillCircle(double x, double y, double rad, uint32_t color);
 //draw filled circle
 void fillCircle(gPoint& cen, double rad, uint32_t color);
 
-//draw player circles
-void drawPlayer(double centDist, double rad, double angle, uint32_t color);
-
 uint32_t reverseColor(uint32_t color);
+
+void DrawNumber(int x, int y, int num, uint32_t color);
+
+void DrawScore(int score, uint32_t color);

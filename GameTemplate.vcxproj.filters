@@ -31,13 +31,16 @@
     <ClInclude Include="PlayerCircles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Squares.h">
+    <ClInclude Include="Square.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SquareSpawner.h">
+    <ClInclude Include="SquareManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SquareList.h">
+    <ClInclude Include="PointSquare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeathSquare.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "Graph.h"
 #include "PlayerCircles.h"
+#include "SquareManager.h"
 
 #include <stdlib.h>
 #include <memory.h>
@@ -20,22 +21,26 @@
 
 
 PlayerCircles *player;
-//SquareSpawner *spawner;
+SquareManager * manager;
 
 // initialize game data in this function
 void initialize()
 {
     player = new PlayerCircles(SCREEN_HEIGHT / 6, 25, WHITE);
-    //spawner = new SquareSpawner();
+    manager = new SquareManager(player);
 }
 
 // this function is called to update game data,
 // dt - time elapsed since the previous update (in seconds)
 void act(float dt)
 {
-    if (is_key_pressed(VK_SPACE))
-        (* player).TryChangeDirection();
-    (* player).UpdateState(dt);
+    if ((*player).IsAlive())
+    {
+        if (is_key_pressed(VK_SPACE))
+            (*player).TryChangeDirection();
+        (*player).UpdateState(dt);
+        (*manager).UpdateState(dt);
+    }
 
     if (is_key_pressed(VK_ESCAPE))
         schedule_quit_game();
@@ -49,6 +54,7 @@ void draw()
   memset(buffer, 128, SCREEN_HEIGHT * SCREEN_WIDTH * sizeof(uint32_t));
 
   (*player).Draw();
+  (*manager).Draw();
 }
 
 // free game data in this function
