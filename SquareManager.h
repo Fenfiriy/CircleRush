@@ -7,7 +7,7 @@
 #include "DeathSquare.h"
 
 #include <stdint.h>
-#include <map>
+#include<time.h>
 
 class SquareManager
 {
@@ -22,6 +22,7 @@ private:
 public:
 	SquareManager(PlayerCircles* p)
 	{
+		srand(time(0));
 		_player = p;
 	}
 
@@ -31,12 +32,10 @@ public:
 		if (rand() % 2 == 1)
 		{
 			sq = new PointSquare();
-			printf("spawn point square");
 		}
 		else
 		{
 			sq = new DeathSquare();
-			printf("spawn death square");
 		}
 
 		if (_allSquaresStart == NULL)

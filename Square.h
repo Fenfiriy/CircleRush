@@ -85,7 +85,7 @@ public:
 	bool CheckCollision(PlayerCircles* p)
 	{
 		//check for collision
-		if ((*p).GetCircleCollision(pos, _size))
+		if ((*p).GetCircleCollision(pos, _size * 0.9))
 		{
 			_OnCollision(p);
 			return true;
